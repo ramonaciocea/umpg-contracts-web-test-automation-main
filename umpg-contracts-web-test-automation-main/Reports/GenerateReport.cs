@@ -1,9 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
-using AventStack.ExtentReports.MarkupUtils;
 using AventStack.ExtentReports.Reporter;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using umpg_contracts_web_test_automation_main.BaseActions;
@@ -11,25 +12,28 @@ using umpg_contracts_web_test_automation_main.BaseActions;
 
 namespace umpg_contracts_web_test_automation_main.Reports
 {
-    // !!! Maybe generate separate reports | Better Report Logging
-
-    public abstract class GenerateReport
+    public class GenerateReport
     {
         private static ExtentHtmlReporter _htmlReporter;
         private static ExtentReports _extent;
        
-        private static ExtentTest _test;
+        private readonly ExtentTest _test;
+        [ThreadStatic]
         private static ExtentTest _featureName;
+        [ThreadStatic]
         private static ExtentTest _scenario;
 
-        public static void InitializeReport()
+        public void InitializeReport()
         {
             try
             {
-                _htmlReporter = new ExtentHtmlReporter(AppSettings.GetReportPath());
+                var reportPath = Path.Combine(Path.GetDirectoryName(
+                    Environment.CurrentDirectory.Substring(0,Environment.CurrentDirectory.IndexOf("bin"))) 
+                                              + "\\Reports\\");
+
+                _htmlReporter = new ExtentHtmlReporter(reportPath);
                 _htmlReporter.Config.DocumentTitle = AppSettings.GetReportTitle();
                 _htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
-
                 _extent = new ExtentReports();
                 _extent.AttachReporter(_htmlReporter);
             }
@@ -37,10 +41,9 @@ namespace umpg_contracts_web_test_automation_main.Reports
             {
                 _test.Log(Status.Fail,"Unable to initialize report: " + ex.Message);
             }
-
         }
 
-        public static void AddTestToReport(object context, string whereToAdd)
+        public void AddTestToReport(object context, string whereToAdd)
         {
             try
             {
@@ -51,6 +54,7 @@ namespace umpg_contracts_web_test_automation_main.Reports
                         break;
                     case "BeforeScenario":
                         _scenario = _featureName.CreateNode<Scenario>(((ScenarioContext) context).ScenarioInfo.Title);
+
                         //if (!customText.IsNullOrEmpty())
                         //{
                         //    var m = MarkupHelper.CreateCodeBlock(customText);
@@ -68,15 +72,15 @@ namespace umpg_contracts_web_test_automation_main.Reports
             }
         }
 
-        public static void AddStepToReport(IWebDriver Driver, ScenarioContext scenarioContext)
+        public void AddStepToReport(IWebDriver Driver, ScenarioContext scenarioContext)
         {
             try
             {
                 PropertyInfo pInfo = typeof(ScenarioContext).GetProperty("ScenarioExecutionStatus",
                     BindingFlags.Instance | BindingFlags.Public);
                 MethodInfo getter = pInfo.GetGetMethod(nonPublic: true);
-                object TestResult = getter.Invoke(ScenarioContext.Current, null);
 
+                var pendingDefinition = scenarioContext.ScenarioExecutionStatus.ToString();
                 var stepType = scenarioContext.StepContext.StepInfo.StepDefinitionType.ToString();
 
                 if (scenarioContext.TestError == null)
@@ -92,24 +96,26 @@ namespace umpg_contracts_web_test_automation_main.Reports
                 }
                 else if (scenarioContext.TestError != null)
                 {
-                 //screenshot in the Base64 format in case the Step Is Failed
-                 var mediaEntity = Tools.CaptureScreenshotAndReturnModel(Driver, scenarioContext.ScenarioInfo.Title.Trim());
+                    var mediaEntity = Tools.CaptureScreenshotAndReturnModel(Driver, scenarioContext.ScenarioInfo.Title.Trim());
+                    var stacktrace = scenarioContext.TestError.StackTrace.Replace(Environment.NewLine, "<br>");
+
+                    var fullError = "<br><pre>" + scenarioContext.TestError.Message + "</pre><br>Stack Trace: <br>" + stacktrace + "<br>";
 
                     if (stepType.Equals("Given"))
                         _scenario.CreateNode<Given>(scenarioContext.StepContext.StepInfo.Text)
-                            .Fail(scenarioContext.TestError.Message, mediaEntity);
+                            .Fail(fullError, mediaEntity);
                     else if (stepType.Equals("When"))
                         _scenario.CreateNode<When>(scenarioContext.StepContext.StepInfo.Text)
-                            .Fail(scenarioContext.TestError.InnerException, mediaEntity);
+                            .Fail(fullError, mediaEntity);
                     else if (stepType.Equals("Then"))
                         _scenario.CreateNode<Then>(scenarioContext.StepContext.StepInfo.Text)
-                            .Fail(scenarioContext.TestError.Message, mediaEntity);
+                            .Fail(fullError, mediaEntity);
                     else if (stepType.Equals("And"))
                         _scenario.CreateNode<And>(scenarioContext.StepContext.StepInfo.Text)
-                            .Fail(scenarioContext.TestError.InnerException, mediaEntity);
+                            .Fail(fullError, mediaEntity);
                 }
 
-                if (TestResult.ToString() == "StepDefinitionPending")
+                if (pendingDefinition == "StepDefinitionPending")
                 {
                     if (stepType.Equals("Given"))
                         _scenario.CreateNode<Given>(scenarioContext.StepContext.StepInfo.Text)
@@ -131,8 +137,7 @@ namespace umpg_contracts_web_test_automation_main.Reports
             }
         }
 
-
-        public static void FlushReport()
+        public void FlushReport()
         {
             try
             {
@@ -143,6 +148,5 @@ namespace umpg_contracts_web_test_automation_main.Reports
                 _test.Log(Status.Fail, "Unable to Flush the report: " + ex.Message);
             }
         }
-
     }
 }

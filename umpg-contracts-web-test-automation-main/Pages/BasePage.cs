@@ -2,7 +2,6 @@
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Threading;
-using AventStack.ExtentReports;
 using OpenQA.Selenium.Interactions;
 using TechTalk.SpecFlow;
 

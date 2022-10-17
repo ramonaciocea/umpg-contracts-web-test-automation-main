@@ -13,8 +13,11 @@ namespace umpg_contracts_web_test_automation_main.Hooks
     [Binding]
     public sealed class SpecflowHooks
     {
+        [ThreadStatic]
         private static IWebDriver _driver;
         private readonly IObjectContainer _objectContainer;
+
+        public static GenerateReport GenerateReport = new GenerateReport();
 
         public SpecflowHooks(IObjectContainer objectContainer) => _objectContainer = objectContainer;
         
@@ -30,7 +33,6 @@ namespace umpg_contracts_web_test_automation_main.Hooks
             {
                 Console.WriteLine("Unable to set up test run parameters from appsettings.json");
             }
-
             GenerateReport.InitializeReport();
         }
 
@@ -47,11 +49,10 @@ namespace umpg_contracts_web_test_automation_main.Hooks
 
             _driver = new WebDriverAutomation().GetWebDriver();
             _objectContainer.RegisterInstanceAs(_driver, typeof(IWebDriver));
-            
         }
 
         [AfterStep]
-        public static void AfterStep(ScenarioContext scenarioContext)
+        public void AfterStep(ScenarioContext scenarioContext)
         {
             GenerateReport.AddStepToReport(_driver, scenarioContext);
         }
@@ -60,7 +61,7 @@ namespace umpg_contracts_web_test_automation_main.Hooks
         [AfterScenario]
         public void AfterScenario()
         {
-             _driver?.Quit();
+             _driver?.Close();
         }
 
 
@@ -68,6 +69,7 @@ namespace umpg_contracts_web_test_automation_main.Hooks
         public static void AfterTestRun()
         {
             GenerateReport.FlushReport();
+            _driver?.Quit();
         }
 
     }

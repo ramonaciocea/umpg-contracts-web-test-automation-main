@@ -14,7 +14,6 @@ namespace umpg_contracts_web_test_automation_main.BaseActions
     public class BaseElementAction
     {
         protected readonly IWebDriver Driver;
- 
         protected Actions Actions => new Actions(Driver);
 
 
