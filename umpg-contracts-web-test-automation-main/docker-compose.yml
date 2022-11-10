@@ -9,6 +9,7 @@ services:
       - "./selenoid:/etc/selenoid/" # assumed current dir contains browsers.json
       - "/var/run/docker.sock:/var/run/docker.sock"
 
+
   selenoid-ui:
     image: "aerokube/selenoid-ui"
     network_mode: bridge
@@ -17,6 +18,18 @@ services:
     ports:
       - "8080:8080"
     command: ["--selenoid-uri", "http://selenoid:4444"]
+
+  selenoid-video-recorder:
+    image: "selenoid/video-recorder:latest-release"
+    network_mode: bridge
+    links:
+      - selenoid
+    volumes:
+      - "./selenoid:/opt/selenoid/video/"
+    command: ["OVERRIDE_VIDEO_OUTPUT_DIR", "/c/selenoid/video/"]
+
+  test-chrome:
+    image: "selenoid/vnc_chrome:107.0"
 
 
   test-framework:
