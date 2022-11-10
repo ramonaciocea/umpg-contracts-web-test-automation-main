@@ -49,6 +49,7 @@ namespace umpg_contracts_web_test_automation_main.Hooks
 
             _driver = new WebDriverAutomation().GetWebDriver();
             _objectContainer.RegisterInstanceAs(_driver, typeof(IWebDriver));
+            _driver.Navigate().GoToUrl("https://www.youtube.com/");
         }
 
         [AfterStep]

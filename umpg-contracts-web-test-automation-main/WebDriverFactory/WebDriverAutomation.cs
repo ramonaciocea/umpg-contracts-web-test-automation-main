@@ -1,7 +1,12 @@
-﻿using OpenQA.Selenium;
+﻿using Docker.DotNet.Models;
+using Microsoft.Extensions.Options;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Remote;
+using SharpCompress.Writers;
 using System;
+using System.Collections.Generic;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
@@ -42,12 +47,21 @@ namespace umpg_contracts_web_test_automation_main.WebDriverFactory
             _chromeOptions.AddArguments("--disable-gpu");
             _chromeOptions.AddUserProfilePreference("disable-popup-blocking", "true");
 
+            _chromeOptions.AddAdditionalOption("selenoid:options", new Dictionary<string, object>
+            {
+                ["enableLog"] = true,
+                ["enableVnc"] = true,
+                ["enableVideo"] = true
+            });
+
             if (AppSettings.GetBrowserMode().Equals("headless"))
                 _chromeOptions.AddArguments("--headless");
 
             new DriverManager().SetUpDriver(new ChromeConfig());
-          //  return new ChromeDriver(_chromeOptions) { Url = AppSettings.GetStartingUrl()};
-          return new ChromeDriver(_chromeOptions);
+            //  return new ChromeDriver(_chromeOptions) { Url = AppSettings.GetStartingUrl()};
+            // return new ChromeDriver(_chromeOptions);
+
+            return new RemoteWebDriver(new Uri("http://192.168.100.18/:4444/wd/hub/"), _chromeOptions);
 
         }
 

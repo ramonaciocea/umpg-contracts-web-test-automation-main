@@ -1,0 +1,29 @@
+{
+  "chrome": {
+    "default": "107.0",
+    "versions": {
+      "107.0": {
+        "image": "selenoid/vnc_chrome:107.0",
+        "port": "4444",
+        "path": "/",
+        "shmSize": 536870912,
+        "volumes": [
+          "/tmp/upload:/tmp/upload:ro"
+        ],
+        "env": [
+          "VERBOSE=true"
+        ]
+      }
+    }
+  },
+  "firefox": {
+    "default": "100.0",
+    "versions": {
+      "100.0": {
+        "image": "selenoid/vnc_firefox:100.0",
+        "port": "4444",
+        "path": "/wd/hub"
+      }
+    }
+  }
+}
