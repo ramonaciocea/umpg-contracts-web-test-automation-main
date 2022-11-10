@@ -61,7 +61,7 @@ namespace umpg_contracts_web_test_automation_main.WebDriverFactory
             //  return new ChromeDriver(_chromeOptions) { Url = AppSettings.GetStartingUrl()};
             // return new ChromeDriver(_chromeOptions);
 
-            return new RemoteWebDriver(new Uri("http://192.168.100.18/:4444/wd/hub/"), _chromeOptions);
+            return new RemoteWebDriver(new Uri("http://192.168.100.18:4444/wd/hub/"), _chromeOptions);
 
         }
 

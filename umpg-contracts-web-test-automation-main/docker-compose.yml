@@ -8,8 +8,6 @@ services:
     volumes:
       - "./selenoid:/etc/selenoid/" # assumed current dir contains browsers.json
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - ./selenoid/logs:/opt/selenoid/logs
-      - ./selenoid/video:/opt/selenoid/video
 
   selenoid-ui:
     image: "aerokube/selenoid-ui"
