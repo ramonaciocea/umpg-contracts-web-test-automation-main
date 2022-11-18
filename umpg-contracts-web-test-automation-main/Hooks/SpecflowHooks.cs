@@ -39,7 +39,6 @@ namespace umpg_contracts_web_test_automation_main.Hooks
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
-            Console.WriteLine("RAMO THE BEST");
             GenerateReport.AddTestToReport(featureContext,"BeforeFeature");
         }
 
@@ -72,7 +71,6 @@ namespace umpg_contracts_web_test_automation_main.Hooks
         {
             GenerateReport.FlushReport();
             _driver?.Quit();
-            Console.WriteLine("RAMO THE BEST LASTTTT");
         }
 
     }

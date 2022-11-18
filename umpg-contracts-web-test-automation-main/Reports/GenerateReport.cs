@@ -4,6 +4,7 @@ using System.Reflection;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.Reporter;
+using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
@@ -27,19 +28,17 @@ namespace umpg_contracts_web_test_automation_main.Reports
         {
             try
             {
-                var reportPath = Path.Combine(Path.GetDirectoryName(
-                    Environment.CurrentDirectory.Substring(0,Environment.CurrentDirectory.IndexOf("bin"))) 
-                                              + "\\Reports\\");
+                 var reportPath = Path.Combine(Directory.GetCurrentDirectory(), "/Reports/");
 
                 _htmlReporter = new ExtentHtmlReporter(reportPath);
-                _htmlReporter.Config.DocumentTitle = AppSettings.GetReportTitle();
+                 _htmlReporter.Config.DocumentTitle = AppSettings.GetReportTitle();
                 _htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
                 _extent = new ExtentReports();
                 _extent.AttachReporter(_htmlReporter);
             }
             catch (Exception ex)
             {
-                _test.Log(Status.Fail,"Unable to initialize report: " + ex.Message);
+                _test.Log(Status.Fail, "Unable to initialize report: " + ex.Message);
             }
         }
 

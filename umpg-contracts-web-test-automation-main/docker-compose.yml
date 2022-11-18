@@ -6,9 +6,12 @@ services:
     ports:
       - "4444:4444"
     volumes:
-      - "./selenoid:/etc/selenoid/" # assumed current dir contains browsers.json
+      - "./selenoid:/etc/selenoid/" # assumed current dir - selenoid - contains browsers.json
       - "/var/run/docker.sock:/var/run/docker.sock"
-
+      - "/c/Users/ramona/source/repos/umpg-contracts-web-test-automation-main/umpg-contracts-web-test-automation-main/selenoid/video/:/opt/selenoid/video/"
+    environment:
+      - OVERRIDE_VIDEO_OUTPUT_DIR=/c/Users/ramona/source/repos/umpg-contracts-web-test-automation-main/umpg-contracts-web-test-automation-main/selenoid/video
+    command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs"]
 
   selenoid-ui:
     image: "aerokube/selenoid-ui"
@@ -21,20 +24,15 @@ services:
 
   selenoid-video-recorder:
     image: "selenoid/video-recorder:latest-release"
-    network_mode: bridge
-    links:
-      - selenoid
-    volumes:
-      - "./selenoid:/opt/selenoid/video/"
-    command: ["OVERRIDE_VIDEO_OUTPUT_DIR", "/c/selenoid/video/"]
 
   test-chrome:
     image: "selenoid/vnc_chrome:107.0"
-
 
   test-framework:
     build:
       context: .
     network_mode: bridge
+    volumes:
+      - "./Reports/:/Reports/"
     links:
       - selenoid

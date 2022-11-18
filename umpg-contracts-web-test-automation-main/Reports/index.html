@@ -49,7 +49,7 @@
           </li>
             <li class="m-r-10">
                 <a href="#">
-                    <span class="badge badge-primary">10/11/2022 20:58:26</span>
+                    <span class="badge badge-primary">11/18/2022 22:41:38</span>
                 </a>
             </li>
         </ul>
@@ -112,15 +112,96 @@
         </div>
         <div class="test-list-wrapper scrollable">
             <ul class="test-list-item">
-					<li class="test-item" status="skip" author="" device="" tag="" test-id="1"> 
+					<li class="test-item" status="pass" author="" device="" tag="" test-id="1"> 
+						<div class="status-avatar pass-bg">
+							<i class="fa fa-check text-white"></i>
+						</div>
+						<div class="open-test">
+							<div class="test-detail"> 
+								<p class="name">SecondFeature</p> 
+								<p class="duration text-sm">0h:0m:47s+972ms</p> 
+								<span class="datetime">22:41:38 PM</span>
+							</div>
+						</div>
+						<div class="test-contents d-none">
+							<div class="detail-head">
+								<div class="p-v-10 d-inline-block">	
+									<div class="info">
+										<h5 class="test-status text-pass">SecondFeature</h5>
+										<span class='badge badge-success'>11/18/2022 22:41:38</span>
+										<span class='badge badge-danger'>11/18/2022 22:42:26</span>
+										<span class='badge badge-default'>0h:0m:47s+972ms</span>
+									</div>
+																	</div>
+							</div>
+
+<div class="accordion mt-4">
+	<div class="card">
+		<div class="card-header" role="tab">
+			<div class="card-title pl-3">
+				<div class="node">Scenario: Test 3</div>
+				<div class="status-avatar float-left pass-bg">
+					<i class="fa fa-check text-white"></i>
+				</div>
+			</div>
+		</div>
+				<div class="collapse">
+                    <div class="card-body">
+                                                    <div class="d-flex align-items-center justify-content-start given" title="">
+                                <span class="alert-icon pass-bg">
+                                    <i class="fa fa-check text-white"></i>
+                                </span>
+                                <span>Given I navigate to application</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-start given" title="">
+                                <span class="alert-icon pass-bg">
+                                    <i class="fa fa-check text-white"></i>
+                                </span>
+                                <span>Given the first number is 50</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-start given" title="">
+                                <span class="alert-icon pass-bg">
+                                    <i class="fa fa-check text-white"></i>
+                                </span>
+                                <span>Given the second number is 70</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-start when" title="">
+                                <span class="alert-icon pass-bg">
+                                    <i class="fa fa-check text-white"></i>
+                                </span>
+                                <span>When the two numbers are added</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-start then" title="">
+                                <span class="alert-icon pass-bg">
+                                    <i class="fa fa-check text-white"></i>
+                                </span>
+                                <span>Then the result should be 1</span>
+                            </div>
+                    </div>
+				</div>
+	</div>
+	<div class="card">
+		<div class="card-header" role="tab">
+			<div class="card-title pl-3">
+				<div class="node">Scenario: Test 4</div>
+				<div class="status-avatar float-left pass-bg">
+					<i class="fa fa-check text-white"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+						</div>
+					</li>
+					<li class="test-item" status="skip" author="" device="" tag="" test-id="2"> 
 						<div class="status-avatar skip-bg">
 							<i class="fa fa-long-arrow-right text-white"></i>
 						</div>
 						<div class="open-test">
 							<div class="test-detail"> 
 								<p class="name">FirstFeature</p> 
-								<p class="duration text-sm">0h:0m:41s+419ms</p> 
-								<span class="datetime">20:58:26 PM</span>
+								<p class="duration text-sm">0h:2m:59s+807ms</p> 
+								<span class="datetime">22:41:38 PM</span>
 							</div>
 						</div>
 						<div class="test-contents d-none">
@@ -128,9 +209,9 @@
 								<div class="p-v-10 d-inline-block">	
 									<div class="info">
 										<h5 class="test-status text-skip">FirstFeature</h5>
-										<span class='badge badge-success'>10/11/2022 20:58:26</span>
-										<span class='badge badge-danger'>10/11/2022 20:59:07</span>
-										<span class='badge badge-default'>0h:0m:41s+419ms</span>
+										<span class='badge badge-success'>11/18/2022 22:41:38</span>
+										<span class='badge badge-danger'>11/18/2022 22:44:38</span>
+										<span class='badge badge-default'>0h:2m:59s+807ms</span>
 									</div>
 																	</div>
 							</div>
@@ -185,6 +266,16 @@
 		<div class="card-header" role="tab">
 			<div class="card-title pl-3">
 				<div class="node">Scenario: Test 2</div>
+				<div class="status-avatar float-left pass-bg">
+					<i class="fa fa-check text-white"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header" role="tab">
+			<div class="card-title pl-3">
+				<div class="node">Scenario: Test 3</div>
 				<div class="status-avatar float-left pass-bg">
 					<i class="fa fa-check text-white"></i>
 				</div>
@@ -259,8 +350,8 @@
 	                </div>
 	            </div>
 	            <div class="card-footer">
-	                <div><small data-tooltip='0%'>
-	                    <b>0</b> features passed
+	                <div><small data-tooltip='50%'>
+	                    <b>1</b> features passed
                     </small></div>
 	                <div>
 	                    <small data-tooltip='0%'><b>0</b> features failed, 
@@ -281,7 +372,7 @@
 	                </div>
 	            </div>
 	            <div class="card-footer">
-	                <div><small data-tooltip='50%'><b>1</b> scenarios passed</small></div>
+	                <div><small data-tooltip='80%'><b>4</b> scenarios passed</small></div>
 	                <div>
 	                    <small data-tooltip='0%'><b>0</b> scenarios failed, 
 	                    <b data-tooltip='0%'>1</b> others
@@ -301,7 +392,7 @@
 	                </div>
 	            </div>
 	            <div class="card-footer">
-	                <div><small data-tooltip='90%'><b>9</b> steps passed</small></div>
+	                <div><small data-tooltip='94.11764705882352%'><b>16</b> steps passed</small></div>
 	                <div>
 	                    <small data-tooltip='0%'><b>0</b> steps failed, 
 	                    <b data-tooltip='0%'>1</b> others
@@ -318,25 +409,6 @@
 	                <div class="media justify-content-between">
 						<div>
 							<h6 class="card-title">Features</h6>
-							<h2 class="font-size-28 font-weight-light">1</h2>
-							<span class="text-semibold text-success font-size-15">
-							<i class="ti-arrow-up font-size-11"></i> 
-								<span>0%</span>
-							</span>
-						</div>
-						<div class="align-self-end">
-							<i class="fa fa-align-left font-size-70 opacity-01"></i>
-						</div>
-					</div>
-	            </div>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="card">
-				<div class="card-body box-height-150">
-	                <div class="media justify-content-between">
-						<div>
-							<h6 class="card-title">Scenarios</h6>
 							<h2 class="font-size-28 font-weight-light">2</h2>
 							<span class="text-semibold text-success font-size-15">
 							<i class="ti-arrow-up font-size-11"></i> 
@@ -355,8 +427,27 @@
 				<div class="card-body box-height-150">
 	                <div class="media justify-content-between">
 						<div>
+							<h6 class="card-title">Scenarios</h6>
+							<h2 class="font-size-28 font-weight-light">5</h2>
+							<span class="text-semibold text-success font-size-15">
+							<i class="ti-arrow-up font-size-11"></i> 
+								<span>80%</span>
+							</span>
+						</div>
+						<div class="align-self-end">
+							<i class="fa fa-align-left font-size-70 opacity-01"></i>
+						</div>
+					</div>
+	            </div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card">
+				<div class="card-body box-height-150">
+	                <div class="media justify-content-between">
+						<div>
 							<h6 class="card-title">Start</h6>
-							<h6 class="font-weight-light">10/11/2022 20:58:26</h6>
+							<h6 class="font-weight-light">11/18/2022 22:41:38</h6>
 							<span class="text-semibold text-success font-size-15">
 						</div>
 						<div class="align-self-end">
@@ -372,7 +463,7 @@
 	                <div class="media justify-content-between">
 						<div>
 							<h6 class="card-title">Duration</h6>
-							<h6 class="font-weight-light">00:00:41.6157709</h6>
+							<h6 class="font-weight-light">00:03:00.0290715</h6>
 							<span class="text-semibold text-danger font-size-15">
 						</div>
 						<div class="align-self-end">
@@ -388,16 +479,16 @@
 </div>
 <script>
 	var statusGroup = {
-    parentCount: 1,
-		passParent: 0,
+    parentCount: 2,
+		passParent: 1,
 		failParent: 0,
 		fatalParent: 0,
 		errorParent: 0,
 		warningParent: 0,
 		skipParent: 1,
 		exceptionsParent: 1,
-		childCount: 2,
-		passChild: 1,
+		childCount: 5,
+		passChild: 4,
 		failChild: 0,
 		fatalChild: 0,
 		errorChild: 0,
@@ -406,8 +497,8 @@
 		infoChild: 0,
 		debugChild: 0,
 		exceptionsChild: 1,
-		grandChildCount: 10,
-		passGrandChild: 9,
+		grandChildCount: 17,
+		passGrandChild: 16,
 		failGrandChild: 0,
 		fatalGrandChild: 0,
 		errorGrandChild: 0,
