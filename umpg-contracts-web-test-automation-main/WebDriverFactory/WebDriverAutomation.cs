@@ -47,12 +47,12 @@ namespace umpg_contracts_web_test_automation_main.WebDriverFactory
             _chromeOptions.AddArguments("--disable-gpu");
             _chromeOptions.AddUserProfilePreference("disable-popup-blocking", "true");
 
-            _chromeOptions.AddAdditionalOption("selenoid:options", new Dictionary<string, object>
-            {
-                ["enableLog"] = true,
-                ["enableVnc"] = true,
-                ["enableVideo"] = true
-            });
+            //_chromeOptions.AddAdditionalOption("selenoid:options", new Dictionary<string, object>
+            //{
+            //    ["enableLog"] = true,
+            //    ["enableVnc"] = true,
+            // //   ["enableVideo"] = true
+            //});
 
             if (AppSettings.GetBrowserMode().Equals("headless"))
                 _chromeOptions.AddArguments("--headless");
@@ -61,7 +61,8 @@ namespace umpg_contracts_web_test_automation_main.WebDriverFactory
             //  return new ChromeDriver(_chromeOptions) { Url = AppSettings.GetStartingUrl()};
             // return new ChromeDriver(_chromeOptions);
 
-            return new RemoteWebDriver(new Uri("http://192.168.100.18:4444/wd/hub/"), _chromeOptions);
+            //use a configuration file to set the IP in case I run test cases on different machines
+            return new RemoteWebDriver(new Uri("http://192.168.0.222:4444/wd/hub/"), _chromeOptions);
 
         }
 

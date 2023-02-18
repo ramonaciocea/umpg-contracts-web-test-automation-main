@@ -8,10 +8,10 @@ services:
     volumes:
       - "./selenoid:/etc/selenoid/" # assumed current dir - selenoid - contains browsers.json
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "/c/Users/ramona/source/repos/umpg-contracts-web-test-automation-main/umpg-contracts-web-test-automation-main/selenoid/video/:/opt/selenoid/video/"
-    environment:
-      - OVERRIDE_VIDEO_OUTPUT_DIR=/c/Users/ramona/source/repos/umpg-contracts-web-test-automation-main/umpg-contracts-web-test-automation-main/selenoid/video
-    command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs"]
+     # - "/c/Users/ramona/source/repos/umpg-contracts-web-test-automation-main/umpg-contracts-web-test-automation-main/selenoid/video/:/opt/selenoid/video/"
+    #environment:
+     # - OVERRIDE_VIDEO_OUTPUT_DIR=/c/Users/ramona/source/repos/umpg-contracts-web-test-automation-main/umpg-contracts-web-test-automation-main/selenoid/video
+    command: ["-conf", "/etc/selenoid/browsers.json"]
 
   selenoid-ui:
     image: "aerokube/selenoid-ui"
@@ -19,14 +19,14 @@ services:
     links:
       - selenoid
     ports:
-      - "8080:8080"
+      - "5050:5050"
     command: ["--selenoid-uri", "http://selenoid:4444"]
 
-  selenoid-video-recorder:
-    image: "selenoid/video-recorder:latest-release"
+  #selenoid-video-recorder:
+  #  image: "selenoid/video-recorder:latest-release"
 
   test-chrome:
-    image: "selenoid/vnc_chrome:107.0"
+    image: "selenoid/vnc_chrome:110.0"
 
   test-framework:
     build:
