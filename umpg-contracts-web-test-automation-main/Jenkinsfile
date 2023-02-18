@@ -12,7 +12,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    docker.build('ramociocea/selenium-docker', './umpg-contracts-web-test-automation-main')
+                    app = docker.build('ramociocea/selenium-docker', './umpg-contracts-web-test-automation-main')
                 }
             }
         }
@@ -20,7 +20,8 @@ pipeline {
             steps {
 			    script{
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){
-                        dockerImage.push()
+                        app.push("${BUILD_NUMBER}")
+			            app.push("latest")
                     }            
                 }                        
             }
