@@ -12,7 +12,10 @@ pipeline {
         stage('Build Image') {
             steps {
                 //sh
-                bat "docker build -t='ramociocea/selenium-docker' ./umpg-contracts-web-test-automation-main"
+                //bat "docker build -t='ramociocea/selenium-docker' ./umpg-contracts-web-test-automation-main"
+                script{
+                    docker.build('ramociocea/selenium-docker','./umpg-contracts-web-test-automation-main')
+                }
             }
         }
         stage('Push Image') {
