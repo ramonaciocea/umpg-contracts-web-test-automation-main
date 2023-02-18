@@ -12,7 +12,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 //sh
-                bat "docker build -t='ramodocker/selenium-docker' ."
+                bat "docker build -t='ramociocea/selenium-docker' ."
             }
         }
         stage('Push Image') {
